@@ -229,111 +229,67 @@ layouts = [
     layout.Floating(**layout_theme),
 ]
 
-colors = [
-    ["#282c34", "#282c34"], # panel background
-    ["#434758", "#434758"], # background for current screen tab
-    ["#ffffff", "#ffffff"], # font color for group names
-    ["#ff5555", "#ff5555"], # border line color for current tab
-    ["#8d62a9", "#8d62a9"], # border line color for other tab and odd widgets
-    ["#668bd7", "#668bd7"], # color for the even widgets
-    ["#e1acff", "#e1acff"], # window name
-]
+colors = {
+    "bg": "#282c34",
+    "fg": "#ffffff",
+    "inactive": "#909090",
+    "border": "#2d82b7",
+    "border_other_screen": "#364d5c",
+    "window_name": "#e1acff",
+}
 
 widget_defaults = dict(
     font="Ubuntu Mono",
     fontsize = 12,
     padding = 2,
-    background=colors[2]
+    background=colors["bg"],
+    foreground=colors["fg"],
 )
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 widgets_list = [
-    widget.Sep(
-        linewidth = 0,
-        padding = 6,
-        foreground = colors[2],
-        background = colors[0]
-    ),
+    widget.Sep(linewidth = 0, padding = 6),
     widget.GroupBox(
         font = "Ubuntu Bold",
-        fontsize = 9,
-        margin_y = 3,
-        margin_x = 3,
-        padding_y = 5,
-        padding_x = 4,
-        borderwidth = 1,
-        active = colors[2],
-        inactive = colors[2],
-        rounded = False,
-        highlight_color = colors[1],
-        highlight_method = "border",
-        this_current_screen_border = colors[3],
-        this_screen_border = colors [4],
-        other_current_screen_border = colors[0],
-        other_screen_border = colors[0],
-        foreground = colors[2],
-        background = colors[0]
+        fontsize = 10,
+        padding=5,
+        active = colors["fg"],
+        inactive = colors["inactive"],
+        highlight_method="border",
+        borderwidth = 2,
+        rounded = True,
+        this_current_screen_border=colors["border"],
+        this_screen_border=colors["border"],
+        other_current_screen_border=colors["border_other_screen"],
+        other_screen_border=colors["border_other_screen"],
     ),
     widget.CurrentLayoutIcon(
         custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
-        foreground = colors[6],
-        background = colors[0],
         padding = 0,
         scale = 0.6
     ),
-    widget.CurrentLayout(
-        foreground = colors[2],
-        background = colors[0]
-    ),
-    widget.Sep(
-        linewidth = 0,
-        padding = 40,
-        foreground = colors[2],
-        background = colors[0]
-    ),
-    widget.WindowName(
-        foreground = colors[6],
-        background = colors[0],
-        padding = 0
-    ),
-    widget.TextBox(
-        text = " 🌡",
-        padding = 2,
-        foreground = colors[2],
-        background = colors[0],
-        fontsize = 11
-    ),
-    widget.ThermalSensor(
-        foreground = colors[2],
-        background = colors[0],
-        threshold = 90,
-        padding = 5
-    ),
+    widget.CurrentLayout(),
+    widget.Sep(linewidth=0, padding=40),
+    widget.WindowName(foreground=colors["window_name"], padding=0),
+    widget.TextBox(text = " 🌡", padding = 2, fontsize = 11),
+    widget.ThermalSensor(threshold = 90, padding = 5),
     widget.TextBox(
         text = " ⟳",
         padding = 2,
-        foreground = colors[2],
-        background = colors[0],
         fontsize = 14,
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + " -e sh -c $HOME/.config/qtile/scripts/yay-update")},
     ),
     widget.Pacman(
         update_interval = 1800,
-        foreground = colors[2],
-        background = colors[0],
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + " -e sh -c $HOME/.config/qtile/scripts/yay-update")},
     ),
     widget.TextBox(
         text = " ",
-        fontsize = 14,
-        foreground = colors[2],
-        background = colors[0],
+        fontsize = 11,
         padding = 0,
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
     ),
     widget.CPU(
-        foreground = colors[2],
-        background = colors[0],
         padding = 5,
         format="{load_percent}%",
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
@@ -341,40 +297,18 @@ widgets_list = [
     widget.TextBox(
         text = " 🖬",
         fontsize = 14,
-        foreground = colors[2],
-        background = colors[0],
         padding = 0,
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
     ),
     widget.Memory(
-        foreground = colors[2],
-        background = colors[0],
         padding = 5,
         format="{MemUsed}M",
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
     ),
-    widget.Sep(
-        linewidth = 0,
-        padding = 20,
-        foreground = colors[0],
-        background = colors[0]
-    ),
-    widget.Clock(
-        font="Ubuntu Mono Bold",
-        foreground = colors[2],
-        background = colors[0],
-        format="%a %d %b %H:%M"
-    ),
-    widget.Sep(
-        linewidth = 0,
-        padding = 10,
-        foreground = colors[0],
-        background = colors[0]
-    ),
-    widget.Systray(
-        background = colors[0],
-        padding = 5
-    ),
+    widget.Sep(linewidth = 0, padding = 20),
+    widget.Clock(font="Ubuntu Mono Bold", format="%a %d %b %H:%M"),
+    widget.Sep(linewidth = 0, padding = 10),
+    widget.Systray(padding = 5),
 ]
 
 def init_widgets_screen1():
@@ -387,9 +321,9 @@ def init_widgets_screen2():
 
 def init_screens():
     return [
-        Screen(top=bar.Bar(widgets=init_widgets_screen1(), oppacity=1.0, size=26)),
-        Screen(top=bar.Bar(widgets=init_widgets_screen2(), oppacity=1.0, size=26)),
-        Screen(top=bar.Bar(widgets=init_widgets_screen1(), oppacity=1.0, size=26)),
+        Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=26)),
+        Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=26)),
+        Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=26)),
     ]
 
 screens = init_screens()
