@@ -1,0 +1,59 @@
+
+rary and binary files
+*~
+*.py[cod]
+*.so
+*.cfg
+!setup.cfg
+!luigi.cfg
+*.orig
+*.log
+*.pot
+__pycache__/*
+.cache/*
+.*.swp
+*.lock
+
+# Project files
+.git
+.idea
+.project
+.pydevproject
+.ropeproject
+.settings
+.vscode
+
+# Package files
+*.egg
+*.eggs/
+.installed.cfg
+*.egg-info
+
+# Unittest and coverage
+htmlcov/*
+.coverage
+.tox
+junit.xml
+coverage.xml
+
+# Build and docs folder/files
+build/*
+dist/*
+sdist/*
+docs/api/*
+docs/_build/*
+cover/*
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints
+
+# Virtual environment
+env/*
+.env/*
+venv/*
+.venv/*
+
+/resources/pass
+.queue/
+
+dotfiles
