@@ -91,7 +91,6 @@ alias ...="cd ../.."
 
 # ls
 alias ls='exa -al --color=always --group-directories-first'
-alias la='exa -al --color=always --group-directories-first'
 alias ll='exa -l --color=always --group-directories-first'
 alias l.="exa -a | egrep '^\.'"
 
@@ -156,10 +155,6 @@ alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 # pacman unlock
 alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
 
-# ps
-alias psa="ps auxf"
-alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
-
 #switch between bash and zsh
 alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
@@ -170,3 +165,8 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 
 # Set startship prompt
 eval "$(starship init bash)"
+
+# Jump around
+# Must be after starship, otherwise it adds characters do the prompt.
+# Data file: $HOME/.z
+. $HOME/scripts/z/z.sh

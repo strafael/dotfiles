@@ -69,26 +69,23 @@ keys = [
     # Dmenu scripts lanched with Ctrl + Alt + Key
 
     # Applications launched with Super + Alt + Key
-    Key([mod, "mod1"], "y", lazy.spawn("gtk3-youtube-viewer"), desc="youtube-viewer"),
     Key([mod, "mod1"], "Left", lazy.spawn('variety -p')),
     Key([mod, "mod1"], "Right", lazy.spawn('variety -n')),
 
     # Applications launched with Ctrl + Shift + Key
     Key([mod2, "shift"], "Escape", lazy.spawn('xfce4-taskmanager')),
 
-# SCREENSHOTS
+    # Screenshots
+    Key([], "Print", lazy.spawn("flameshot gui"), desc="Select an area and copy to clipboard"),
+    Key(["control"], "Print", lazy.spawn("flameshot gui -d 3000"), desc="Wait for 3 seconds, then select an area and copy to clipboard"),
 
-    Key([], "Print", lazy.spawn("scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'")),
-    Key([mod2], "Print", lazy.spawn('xfce4-screenshooter')),
-    Key([mod2, "shift"], "Print", lazy.spawn('gnome-screenshot -i')),
+    # MULTIMEDIA KEYS
 
-# MULTIMEDIA KEYS
-
-# INCREASE/DECREASE BRIGHTNESS
+    # INCREASE/DECREASE BRIGHTNESS
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
 
-# INCREASE/DECREASE/MUTE VOLUME
+    # INCREASE/DECREASE/MUTE VOLUME
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q set Master 5%-")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q set Master 5%+")),
@@ -98,12 +95,7 @@ keys = [
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
     Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
 
-# QTILE LAYOUT KEYS
-    Key([mod], "n", lazy.layout.normalize()),
-
-
-
-# RESIZE UP, DOWN, LEFT, RIGHT
+    # RESIZE UP, DOWN, LEFT, RIGHT
     Key([mod, "control"], "l",
         lazy.layout.grow_right(),
         lazy.layout.grow(),
@@ -149,18 +141,13 @@ keys = [
         lazy.layout.increase_nmaster(),
         ),
 
-
-# FLIP LAYOUT FOR MONADTALL/MONADWIDE
-
-# FLIP LAYOUT FOR BSP
+    # FLIP LAYOUT FOR BSP
     Key([mod, "mod1"], "k", lazy.layout.flip_up()),
     Key([mod, "mod1"], "j", lazy.layout.flip_down()),
     Key([mod, "mod1"], "l", lazy.layout.flip_right()),
     Key([mod, "mod1"], "h", lazy.layout.flip_left()),
 
-# MOVE WINDOWS UP OR DOWN BSP LAYOUT
-
-# MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
+    # MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
     Key([mod, "shift"], "Up", lazy.layout.shuffle_up()),
     Key([mod, "shift"], "Down", lazy.layout.shuffle_down()),
     Key([mod, "shift"], "Left", lazy.layout.swap_left()),
@@ -189,9 +176,11 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 
     # Switch to next group
     keys.append(Key(["mod1"], "Tab", lazy.screen.next_group()))
+    keys.append(Key([mod], "Right", lazy.screen.next_group()))
 
     # Swith to previous group
     keys.append(Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()))
+    keys.append(Key([mod], "Left", lazy.screen.prev_group()))
 
 layout_theme = {
     "margin": 5,
@@ -233,7 +222,7 @@ colors = {
     "bg": "#282c34",
     "fg": "#ffffff",
     "inactive": "#909090",
-    "border": "#2d82b7",
+    "border": "#ff5555",
     "border_other_screen": "#364d5c",
     "window_name": "#e1acff",
 }
@@ -248,21 +237,23 @@ widget_defaults = dict(
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 widgets_list = [
-    widget.Sep(linewidth = 0, padding = 6),
+    widget.Sep(linewidth=0, padding=6),
     widget.GroupBox(
-        font = "Ubuntu Bold",
-        fontsize = 10,
+        font="Ubuntu Bold",
+        fontsize=10,
         padding=5,
-        active = colors["fg"],
-        inactive = colors["inactive"],
-        highlight_method="border",
-        borderwidth = 2,
-        rounded = True,
+        active=colors["fg"],
+        inactive=colors["inactive"],
+        highlight_method="line",
+        borderwidth=3,
+        rounded=True,
         this_current_screen_border=colors["border"],
         this_screen_border=colors["border"],
         other_current_screen_border=colors["border_other_screen"],
         other_screen_border=colors["border_other_screen"],
     ),
+
+    # Current layout
     widget.CurrentLayoutIcon(
         custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
         padding = 0,
@@ -270,9 +261,15 @@ widgets_list = [
     ),
     widget.CurrentLayout(),
     widget.Sep(linewidth=0, padding=40),
+
+    # Window name
     widget.WindowName(foreground=colors["window_name"], padding=0),
+
+    # Temperature
     widget.TextBox(text = " 🌡", padding = 2, fontsize = 11),
     widget.ThermalSensor(threshold = 90, padding = 5),
+
+    # Updates
     widget.TextBox(
         text = " ⟳",
         padding = 2,
@@ -283,6 +280,8 @@ widgets_list = [
         update_interval = 1800,
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + " -e sh -c $HOME/.config/qtile/scripts/yay-update")},
     ),
+
+    # CPU
     widget.TextBox(
         text = " ",
         fontsize = 11,
@@ -294,6 +293,8 @@ widgets_list = [
         format="{load_percent}%",
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
     ),
+
+    # Memory
     widget.TextBox(
         text = " 🖬",
         fontsize = 14,
@@ -305,8 +306,12 @@ widgets_list = [
         format="{MemUsed}M",
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
     ),
+
+    # Clock
     widget.Sep(linewidth = 0, padding = 20),
     widget.Clock(font="Ubuntu Mono Bold", format="%a %d %b %H:%M"),
+
+    # System tray
     widget.Sep(linewidth = 0, padding = 10),
     widget.Systray(padding = 5),
 ]
@@ -321,9 +326,9 @@ def init_widgets_screen2():
 
 def init_screens():
     return [
-        Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=26)),
-        Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=26)),
-        Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=26)),
+        Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.85, size=26)),
+        Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.85, size=26)),
+        Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.85, size=26)),
     ]
 
 screens = init_screens()
@@ -371,6 +376,7 @@ floating_layout = layout.Floating(
         {'wname': 'pinentry'},  # GPG key password entry
         {'wmclass': 'ssh-askpass'},  # ssh-askpass
         {'wmclass': 'vlc'},
+        {'wmclass': 'xfreerdp'},
     ],
     fullscreen_border_width=0,
     border_width=0,
