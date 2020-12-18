@@ -83,6 +83,19 @@ ex ()
   fi
 }
 
+# Função para ativar um virtualenv dentro de uma pasta
+activate() {
+  if [ -e "venv" ]; then
+    source venv/bin/activate
+  fi
+  if [ -e ".venv" ]; then
+    source .venv/bin/activate
+  fi
+}
+
+# Ativa o virtualenv se terminal for aberto em pasta que tenha um virtualenv
+activate
+
 ### Aliases
 
 # navigation
