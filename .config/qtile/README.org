@@ -428,6 +428,10 @@ widgets_list = [
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
     ),
 
+    # Volume
+    widget.TextBox(text=" Vol:", padding=0),
+    widget.Volume(padding = 5),
+
     # Clock
     widget.Sep(linewidth = 0, padding = 20),
     widget.Clock(font="Ubuntu Mono Bold", format="%a %d %b %H:%M"),

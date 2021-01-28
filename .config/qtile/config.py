@@ -195,8 +195,8 @@ layouts = [
     layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
-    layout.Matrix(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
+    layout.Matrix(**layout_theme),
     layout.Floating(**layout_theme),
 ]
 
@@ -287,6 +287,10 @@ widgets_list = [
         format="{MemUsed}M",
         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myterm + ' -e htop')},
     ),
+
+    # Volume
+    widget.TextBox(text=" Vol:", padding=0),
+    widget.Volume(padding = 5),
 
     # Clock
     widget.Sep(linewidth = 0, padding = 20),
