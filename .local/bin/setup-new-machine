@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+# Update system and makes sure this script is running as root
+pacman -Syyu --noconfirm
+
+# In case pacman created a .pacnew...
+[ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers
+
+# Add user to wheel group
+usermod -aG wheel $USER
+
+# Allows user to run sudo commands without asking for password
+sed -i 's/^#\s\(%wheel\sALL=(ALL)\s\NOPASSWD:\sALL\)/\1/' /etc/sudoers
+
+# Activate colors in pacman and yay
+sed -i 's/^#Color/Color/g' /etc/pacman.conf
+
+# Turn of annoying beeps
+mkdir -p /etc/modprobe.d
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+
+# Install Doom Emacs
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+
+# Install vim-plug for NeoVim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+#sudo update-grub
