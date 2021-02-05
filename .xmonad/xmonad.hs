@@ -239,21 +239,16 @@ myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out the full
      -- name of my workspaces, and the names would very long if using clickable workspaces.
-     [ className =? "firefox"                                           --> doShift ( myClickableWorkspaces !! 2 )
-     , className =? "brave-browser"                                     --> doShift ( myWorkspaces !! 2 )
-     , className =? "google-chrome"                                     --> doShift ( myWorkspaces !! 2 )
-     , className =? "Gimp"                                              --> doShift ( myWorkspaces !! 8 )
-     , className =? "Gimp"                                              --> doFloat
+     [ className =? "Gimp"                                              --> doFloat
      , title =? "Oracle VM VirtualBox Manager"                          --> doFloat
-     , className =? "VirtualBox Manager"                                --> doShift  ( myWorkspaces !! 4 )
-     -- , (className =? "brave-browser" <&&> resource =? "Dialog")         --> doFloat  -- Float Brave Dialog
-     -- , (className =? "firefox" <&&> resource =? "Dialog")               --> doFloat  -- Float Firefox Dialog
-     -- , (className =? "google-chrome" <&&> resource =? "Dialog")         --> doFloat  -- Float Chrome Dialog
+     , (className =? "brave-browser" <&&> resource =? "Dialog")         --> doFloat  -- Float Brave Dialog
+     , (className =? "firefox" <&&> resource =? "Dialog")               --> doFloat  -- Float Firefox Dialog
+     , (className =? "google-chrome" <&&> resource =? "Dialog")         --> doFloat  -- Float Chrome Dialog
      ]
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.95
+    where fadeAmount = 1.0
 
 myKeys :: String -> [([Char], X ())]
 myKeys home =
@@ -371,7 +366,7 @@ main = do
                     { ppOutput          = hPutStrLn xmproc
                     , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
                     , ppVisible         = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                    , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" ""  -- Hidden workspaces in xmobar
+                    , ppHidden          = xmobarColor "#82AAFF" ""  -- Hidden workspaces in xmobar
                     , ppHiddenNoWindows = xmobarColor "#c792ea" ""                -- Hidden workspaces (no windows)
                     , ppTitle           = xmobarColor "#b3afc2" "" . shorten 60   -- Title of active window in xmobar
                     , ppSep             = "<fc=#666666> <fn=1>|</fn> </fc>"       -- Separators in xmobar
