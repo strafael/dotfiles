@@ -169,7 +169,7 @@
        yaml              ; JSON, but readable
 
        :email
-       (mu4e +gmail)
+       ;; (mu4e +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
@@ -182,3 +182,5 @@
        :config
        ;;literate
        (default +bindings +smartparens))
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
