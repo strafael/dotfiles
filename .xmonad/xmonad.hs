@@ -244,6 +244,7 @@ myManageHook = composeAll
      , (className =? "brave-browser" <&&> resource =? "Dialog")         --> doFloat  -- Float Brave Dialog
      , (className =? "firefox" <&&> resource =? "Dialog")               --> doFloat  -- Float Firefox Dialog
      , (className =? "google-chrome" <&&> resource =? "Dialog")         --> doFloat  -- Float Chrome Dialog
+     , (className =? "realvnc-vncviewer")                               --> doFloat  -- Float VNC Viewer
      ]
 
 myLogHook :: X ()
@@ -256,10 +257,10 @@ myKeys home =
     -- Xmonad
     ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
   , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
-  , ("M-S-q", io exitSuccess)             -- Quits xmonad
+  , ("M-S-x", io exitSuccess)             -- Quits xmonad
 
    -- Run Prompt
-  , ("M-d", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
+  , ("M-d", spawn "rofi -show drun -config ~/.config/rofi/config -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
 
   -- Useful programs to have a keybinding for launch
   , ("M-<Return>", spawn (myTerminal ++ " -e bash"))
@@ -267,7 +268,7 @@ myKeys home =
   , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
 
   -- Kill windows
-  , ("M-S-c", kill1)     -- Kill the currently focused client
+  , ("M-S-q", kill1)     -- Kill the currently focused client
   , ("M-S-a", killAll)   -- Kill all windows on current workspace
 
   -- Workspaces
@@ -366,7 +367,7 @@ main = do
                     { ppOutput          = hPutStrLn xmproc
                     , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
                     , ppVisible         = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                    , ppHidden          = xmobarColor "#82AAFF" ""  -- Hidden workspaces in xmobar
+                    , ppHidden          = xmobarColor "#82AAFF" ""                -- Hidden workspaces in xmobar
                     , ppHiddenNoWindows = xmobarColor "#c792ea" ""                -- Hidden workspaces (no windows)
                     , ppTitle           = xmobarColor "#b3afc2" "" . shorten 60   -- Title of active window in xmobar
                     , ppSep             = "<fc=#666666> <fn=1>|</fn> </fc>"       -- Separators in xmobar
