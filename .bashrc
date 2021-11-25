@@ -103,9 +103,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 
 # ls
-alias ls='exa -al --color=always --group-directories-first'
-alias ll='exa -l --color=always --group-directories-first'
-alias l.="exa -a | egrep '^\.'"
+alias ll='exa -l --icons --color=always --group-directories-first'
+alias l.="exa -al --icons --color=always --group-directories-first | egrep '^\.'"
 
 # vim and emacs
 alias vim="nvim"
