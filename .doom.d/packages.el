@@ -49,9 +49,4 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! all-the-icons-dired)
-(package! dired-open)
-(package! org-bullets)
-(package! org-mime)
-(package! org-web-tools)
-(package! peep-dired)
+(package! py-isort)

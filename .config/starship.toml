@@ -19,5 +19,5 @@ disabled = false
 [package]
 disabled = true
 
-#[python]
-#symbol = " "
+[python]
+symbol = " "
