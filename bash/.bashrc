@@ -24,8 +24,3 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-# Exports
-export EDITOR=/usr/bin/nvim
-
-# Aliases
-alias vim='nvim'
