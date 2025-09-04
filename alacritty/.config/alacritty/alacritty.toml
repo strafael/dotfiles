@@ -1,7 +1,5 @@
 [general]
-# import = ["~/.config/alacritty/alacritty-theme/themes/doom_one.toml"]
-# import = ["~/.config/alacritty/alacritty-theme/themes/tokyo_night.toml"]
-import = ["~/.config/alacritty/alacritty-theme/themes/carbonfox.toml"]
+import = ["~/.config/alacritty/alacritty-theme/themes/tokyo_night.toml"]
 
 [env]
 TERM = "xterm-256color"
@@ -10,19 +8,19 @@ TERM = "xterm-256color"
 size = 11.0
 
 [font.normal]
-family = "AdwaitaMono Nerd Font Mono"
-style = "Regular"
+family = "BlexMono Nerd Font Mono"
+style = "Medium"
 
 [font.bold]
-family = "AdwaitaMono Nerd Font Mono"
+family = "BlexMono Nerd Font Mono"
 style = "Bold"
 
 [font.italic]
-family = "AdwaitaMono Nerd Font Mono"
-style = "Italic"
+family = "BlexMono Nerd Font Mono"
+style = "Medium Italic"
 
 [font.bold_italic]
-family = "AdwaitaMono Nerd Font Mono"
+family = "BlexMono Nerd Font Mono"
 style = "Bold Italic"
 
 [font.offset]
@@ -31,7 +29,7 @@ y = 1
 
 [window]
 decorations = "None"
-opacity = 0.8
+opacity = 1.0
 
 [window.padding]
 x = 6
