@@ -1,3 +1,8 @@
+[general]
+# import = ["~/.config/alacritty/alacritty-theme/themes/doom_one.toml"]
+# import = ["~/.config/alacritty/alacritty-theme/themes/tokyo_night.toml"]
+import = ["~/.config/alacritty/alacritty-theme/themes/carbonfox.toml"]
+
 [env]
 TERM = "xterm-256color"
 
@@ -23,6 +28,10 @@ style = "Bold Italic"
 [font.offset]
 x = 0
 y = 1
+
+[window]
+decorations = "None"
+opacity = 0.8
 
 [window.padding]
 x = 6
