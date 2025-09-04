@@ -5,27 +5,27 @@ import = ["~/.config/alacritty/alacritty-theme/themes/tokyo_night.toml"]
 TERM = "xterm-256color"
 
 [font]
-size = 11.0
+size = 13.0
 
 [font.normal]
-family = "BlexMono Nerd Font Mono"
-style = "Medium"
+family = "UbuntuMono Nerd Font Mono"
+style = "Regular"
 
 [font.bold]
-family = "BlexMono Nerd Font Mono"
+family = "UbuntuMono Nerd Font Mono"
 style = "Bold"
 
 [font.italic]
-family = "BlexMono Nerd Font Mono"
-style = "Medium Italic"
+family = "UbuntuMono Nerd Font Mono"
+style = "Italic"
 
 [font.bold_italic]
-family = "BlexMono Nerd Font Mono"
-style = "Bold Italic"
+family = "UbuntuMono Nerd Font Mono"
+style = "Italic"
 
 [font.offset]
 x = 0
-y = 1
+y = 3
 
 [window]
 decorations = "None"
