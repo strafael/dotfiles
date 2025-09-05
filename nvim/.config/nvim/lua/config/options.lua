@@ -10,6 +10,7 @@ opt.number = true             -- show absolute line numbers
 opt.relativenumber = true     -- show relative numbers for motions
 opt.cursorline = true         -- highlight the current line
 opt.wrap = false              -- do not wrap long lines
+opt.winborder = 'rounded'     -- set the default border for all floating windows
 
 --==========================--
 -- Encoding
@@ -20,8 +21,9 @@ opt.fileencoding = "utf-8"    -- encoding used when writing files
 --==========================--
 -- Indentation & Tabs
 --==========================--
-opt.tabstop = 3               -- visual width of a <Tab> (in spaces)
-opt.shiftwidth = 3            -- spaces used for each step of (auto)indent
+opt.tabstop = 2               -- visual width of a <Tab> (in spaces)
+opt.softtabstop = 2
+opt.shiftwidth = 2            -- spaces used for each step of (auto)indent
 opt.expandtab = true          -- convert typed <Tab> to spaces
 opt.autoindent = true         -- copy indent from current line when starting a new one
 opt.smartindent = true        -- smarter autoindenting for new lines
